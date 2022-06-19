@@ -1,8 +1,31 @@
 import React, { FunctionComponent } from "react";
 
-function CompletedTaskLists () {
-    return (
-        <div>Done</div>
-    );
+import { Task } from "../models/task";
+import { CompletedTaskListItem } from "./CompletedTaskListsItem";
+
+interface Props {
+  tasks: Task[];
+  onDelete: (task: Task) => void;
 }
-export default CompletedTaskLists;
+
+export const CompletedTaskList: FunctionComponent<Props> = ({
+  tasks,
+  onDelete
+}) => (
+  <>
+    <div>
+      <h3>Done</h3>
+      {tasks.length == 0 ? "-" : null}
+      <ul>
+        {tasks.map((task, _i) => (
+          <CompletedTaskListItem key={_i} task={task} onDelete={onDelete} />
+        ))}
+      </ul>
+    </div>
+    <style jsx>{`
+      div {
+        min-width: 12em;
+      }
+    `}</style>
+  </>
+);
